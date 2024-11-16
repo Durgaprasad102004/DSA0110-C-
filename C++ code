@@ -1,0 +1,98 @@
+#include <iostream>
+#include <string>
+#include <chrono>
+#include <thread>
+
+// Function to analyze heart rate and provide feedback
+void analyzeHeartRate(int heartRate) {
+    std::cout << "Heart Rate: " << heartRate << " BPM" << std::endl;
+
+    if (heartRate >= 60 && heartRate <= 100) {
+        std::cout << "Status: Normal\nMaintain a balanced lifestyle to keep your heart rate steady." << std::endl;
+    } else if (heartRate > 100) {
+        std::cout << "Status: High\nRisk: Elevated heart rate can indicate stress, dehydration, or other issues.\n";
+        std::cout << "Tips to Reduce Heart Rate:\n - Take deep breaths and relax\n - Drink water\n - Avoid caffeine\n";
+        std::cout << "If the rate remains high, consult a doctor." << std::endl;
+    } else if (heartRate < 60) {
+        std::cout << "Status: Low\nRisk: Low heart rate can cause dizziness or weakness.\n";
+        std::cout << "Tips to Raise Heart Rate:\n - Move around or do light exercise\n - Avoid prolonged sitting\n";
+        std::cout << "If symptoms persist, consult a healthcare provider." << std::endl;
+    } else {
+        std::cout << "Error: Invalid heart rate data." << std::endl;
+    }
+}
+
+// Function to analyze body temperature and provide feedback
+void analyzeBodyTemperature(float temperature) {
+    std::cout << "Body Temperature: " << temperature << "°C" << std::endl;
+
+    if (temperature >= 36.1 && temperature <= 37.2) {
+        std::cout << "Status: Normal\nMaintain hydration and avoid extreme temperatures." << std::endl;
+    } else if (temperature > 37.2) {
+        std::cout << "Status: High (Fever)\nRisk: Fever can indicate infection or illness.\n";
+        std::cout << "Tips to Lower Fever:\n - Rest and stay hydrated\n - Use a cool compress\n";
+        std::cout << "If fever persists or exceeds 39°C, consult a doctor." << std::endl;
+    } else if (temperature < 36.1) {
+        std::cout << "Status: Low (Hypothermia risk)\nRisk: Low body temperature can lead to fatigue and confusion.\n";
+        std::cout << "Tips to Increase Temperature:\n - Stay warm and wear layers\n - Drink warm fluids\n";
+        std::cout << "If you feel unwell, seek medical assistance." << std::endl;
+    } else {
+        std::cout << "Error: Invalid temperature data." << std::endl;
+    }
+}
+
+// Function to analyze SpO₂ level and provide feedback
+void analyzeBloodOxygenLevel(int spo2) {
+    std::cout << "Blood Oxygen Level (SpO₂): " << spo2 << "%" << std::endl;
+
+    if (spo2 >= 95 && spo2 <= 100) {
+        std::cout << "Status: Normal\nMaintain regular breathing and avoid smoke-filled environments." << std::endl;
+    } else if (spo2 < 95 && spo2 >= 90) {
+        std::cout << "Status: Mild Hypoxia\nRisk: Low oxygen can cause fatigue and shortness of breath.\n";
+        std::cout << "Tips to Increase Oxygen Level:\n - Practice deep breathing\n - Avoid physical exertion\n";
+        std::cout << "If levels drop further, seek medical help." << std::endl;
+    } else if (spo2 < 90) {
+        std::cout << "Status: Severe Hypoxia\nRisk: Very low oxygen levels are dangerous.\n";
+        std::cout << "Actions Needed:\n - Seek immediate medical assistance\n";
+        std::cout << "If oxygen level is consistently low, consult a healthcare provider." << std::endl;
+    } else {
+        std::cout << "Error: Invalid SpO₂ data." << std::endl;
+    }
+}
+
+// Function to receive user input for health data
+void receiveHealthData(int &heartRate, float &temperature, int &spo2) {
+    std::cout << "Enter heart rate (BPM): ";
+    std::cin >> heartRate;
+    std::cout << "Enter body temperature (°C): ";
+    std::cin >> temperature;
+    std::cout << "Enter SpO₂ level (%): ";
+    std::cin >> spo2;
+}
+
+int main() {
+    while (true) {
+        int heartRate;
+        float temperature;
+        int spo2;
+
+        // Get health data from user
+        receiveHealthData(heartRate, temperature, spo2);
+
+        // Analyze each health parameter
+        std::cout << "\n--- Health Monitoring ---" << std::endl;
+        analyzeHeartRate(heartRate);
+        analyzeBodyTemperature(temperature);
+        analyzeBloodOxygenLevel(spo2);
+        std::cout << "--- End of Analysis ---\n" << std::endl;
+
+        // Option to continue or stop
+        char continueMonitoring;
+        std::cout << "Do you want to input new data? (y/n): ";
+        std::cin >> continueMonitoring;
+        if (continueMonitoring == 'n' || continueMonitoring == 'N') {
+            break;
+        }
+    }
+    return 0;
+}
